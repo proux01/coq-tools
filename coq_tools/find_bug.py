@@ -2257,7 +2257,7 @@ def main():
                     )
                     for p in coqpath_paths:
                         env[passing_prefix + "libnames"] = tuple(
-                            list(env[passing_prefix + "libnames"]) + [(os.path.join(p, "Stdlib"), "Coq")]
+                            list(env[passing_prefix + "libnames"]) + [(os.path.join(p, "Stdlib"), "Stdlib")]
                         )
                 if args.inline_stdlib:
                     env[passing_prefix + "libnames"] = tuple(
