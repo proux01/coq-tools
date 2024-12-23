@@ -2243,6 +2243,8 @@ def main():
                 coq_user_contrib_path = os.path.join(os.path.join(coq_lib_path, "user-contrib"), "Stdlib")
                 coqpath_path = os.environ.get('COQPATH', '')
                 coqpath_paths = coqpath_path.split(os.pathsep) if coqpath_path else []
+                rocqpath_path = os.environ.get('ROCQPATH', '')
+                rocqpath_paths = rocqpath_path.split(os.pathsep) if rocqpath_path else []
                 if args.inline_coqlib:
                     if coqc_version != "" and coqc_version[0] == '8':
                         env[passing_prefix + "libnames"] = tuple(
@@ -2255,9 +2257,9 @@ def main():
                     env[passing_prefix + "libnames"] = tuple(
                         list(env[passing_prefix + "libnames"]) + [(coq_user_contrib_path, "Stdlib")]
                     )
-                    for p in coqpath_paths:
+                    for p in (coqpath_paths + rocqpath_paths):
                         env[passing_prefix + "libnames"] = tuple(
-                            list(env[passing_prefix + "libnames"]) + [(os.path.join(p, "Stdlib"), "Coq")]
+                            list(env[passing_prefix + "libnames"]) + [(os.path.join(p, "Stdlib"), "Stdlib")]
                         )
                 if args.inline_stdlib:
                     env[passing_prefix + "libnames"] = tuple(
@@ -2266,7 +2268,7 @@ def main():
                     env[passing_prefix + "libnames"] = tuple(
                         list(env[passing_prefix + "libnames"]) + [(coq_user_contrib_path, "Stdlib")]
                     )
-                    for p in coqpath_paths:
+                    for p in (coqpath_paths + rocqpath_paths):
                         env[passing_prefix + "libnames"] = tuple(
                             list(env[passing_prefix + "libnames"]) + [(os.path.join(p, "Stdlib"), "Stdlib")]
                         )
